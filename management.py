@@ -1,12 +1,13 @@
+import json
 from spartan import Spartans
 
 
 def spartans_read_option():
     while True:
         user_option = input("This is a list of your options: \n 1): Add a Spartan  \n 2): Remove a Spartan \n 3): List the Spartans \n "
-            "4): Update a Sparatan's Data \n 5): Total number of Spartans \n 6): Retrieve a Spartan \n 7): Exit the app \n")
+            "4): Update a Sparatan's Data \n 5): Total number of Spartans \n 6): Retrieve a Spartan \n 7): Save to JSON file \n 8): Exit the app \n")
         user_option = user_option.strip()
-        if user_option in ["add", "remove", "update", "list", "total", "retrieve" "exit"]:
+        if user_option in ["add", "remove", "update", "list", "total", "retrieve", "save", "exit"]:
             return user_option
         else:
             print("Error, You should select one of the options in the list")
@@ -198,9 +199,35 @@ def update_spartans_data(spartan_id):
     print(f"Field{field_option} for entry iD {spartan_id} has been changed.")
 
 
+def save_to_json():
+    temp_dict_of_dict = {}
+    for spartan_id in all_spartan_dict:
+        spartan_object = all_spartan_dict[spartan_id]
+        spartan_dictionary = spartan_object.__dict__
+        temp_dict_of_dict[spartan_id] = spartan_dictionary
+
+    with open("data.json", "w") as data_file:
+        json.dump(temp_dict_of_dict, data_file)
+
+
+def load_from_json():
+    global all_spartan_dict
+    temp_dict_of_dict = {}
+    try:
+        with open("data.json", "r") as data_file:
+            temp_dict_of_dict = json.load(data_file)
+    except:
+        print("The file data1.json doesn't exist")
+    print(temp_dict_of_dict)
+    for spartan_id_key in temp_dict_of_dict:
+        spartan_id = temp_dict_of_dict[spartan_id_key]['spartan_id']
+    spartan_object = Spartans[create_spartan_ob()]
+
+
 if __name__ == "__main__":
 
     all_spartan_dict = {}
+    # load_from_json()
 
     while True:
         option = spartans_read_option()
@@ -214,7 +241,7 @@ if __name__ == "__main__":
             spartan_id = spartan_object.get_spartan_id()
             all_spartan_dict[spartan_id] = spartan_object
             print(all_spartan_dict.get(spartan_id))
-            # print(all_spartan_dict)
+            print(all_spartan_dict)
 
 
         elif option == "remove":
@@ -229,7 +256,7 @@ if __name__ == "__main__":
                 spartan_object = all_spartan_dict[spartan_id]
                 print(all_spartan_dict[spartan_id])
             # log_file.write("You have listed the total number of Spartans \n")
-            # print_all_spartan_data()
+            print_all_spartan_data()
 
 # maybe remove this?
         # add, remove, list and retrieve, exit
@@ -252,11 +279,11 @@ if __name__ == "__main__":
             # log_file.write("you have exited the Spartans Management System \n")
             print("Thanks, see you later")
             break
-        # elif option == "save":
-        #     print("The data will be saved to json file")
-        #     save_to_json()
-        # elif option == "load":
-        #     print("the data will be loaded from a JSON file")
-        #     load_from_json()
+        elif option == "save":
+            print("The data will be saved to json file")
+            save_to_json()
+        elif option == "load":
+            print("the data will be loaded from a JSON file")
+            load_from_json()
         else:
             print("Unknown option")
