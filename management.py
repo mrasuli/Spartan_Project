@@ -32,7 +32,7 @@ def read_first_name():
         if len(first_name) >= 2:
             return first_name
         else:
-            print("Error, The Employee First Name should be at least 2 Characters")
+            print("Error, The Spartans First Name should be at least 2 Characters")
 
 
 def read_last_name():
@@ -128,7 +128,7 @@ def create_spartan_ob():
 
 def print_all_spartan_data():
     for spartan_id_key in all_spartan_dict:
-        print(f"The data of the employee with Employee_ID = {spartan_id_key}")
+        print(f"The data of the Spartan with Spartan_ID = {spartan_id_key}")
         print(all_spartan_dict[spartan_id_key])
 
 
@@ -138,7 +138,7 @@ def add_spartan():
     print("The Spartan was added to the list")
 
 def remove_spartan():
-    global employees_db
+    global spartans_db
     remove_id_str = input("PLease enter the iD you would like to remove from the data base: ")
     if remove_id_str.isdigit() and int(remove_id_str) in spartans_db:
         remove_id = int(remove_id_str)
@@ -225,7 +225,7 @@ if __name__ == "__main__":
             # print_all_employees_data()
 
         elif option == "update":
-            print("The user wants to update the data of an employee")
+            print("The user wants to update the data of a Spartan")
             spartan_id = read_spartans_id()
             update_spartans_data(spartan_id)
             # log_file.write("you have updated an employee \n")
