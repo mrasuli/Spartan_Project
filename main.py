@@ -17,12 +17,6 @@ def homepage():
            "Each time you use an app like Facebook, send an instant message, or check the weather on your phone, you're using an API. \n"
     return homepage_content
 
-# we will creat a URI named spdb/spartans and we will define the method as get. Flask will call the function getAllSp as argument.
-# now we will develop a rest service to get an employee with a given id
-# the bellow code will find the spartan id with the given id and send the json object to the data.
-# the request.json will contain the JSON object set in the client request.
-
-
 #localhost:5000/spartan/1
 @spartans_app.route('/spartan/<spartan_id>', methods =['GET'])
 def spartan_get(spartan_id):
