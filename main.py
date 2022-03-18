@@ -42,7 +42,7 @@ def spartan_add():
     else:
         return "ERROR, the Spartans birth year should be a number between 1900 and 2004."
 
-    if int(spartan_data["birth_month"]) in range(1, 13):
+    if int(spartan_data["birth_month"]) in range(1, 12):
         sp_bm = spartan_data["birth_month"]
     else:
         return "ERROR, the Spartans birth month should be a number between 1 and 12."
@@ -69,7 +69,7 @@ def spartan_add():
         tempo_spartan = Spartans(spartan_id, sp_fn, sp_ln, sp_bd, sp_bm, sp_by, sp_course, sp_stream)
         management.create_spartan_ob(tempo_spartan)
         management.save_to_json()
-        return "Entry saved."
+        return "Spartan Data Saved"
 
 
 #localhost:5000/spartan/1
