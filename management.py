@@ -152,27 +152,11 @@ def remove_spartan():
     del spartans_db[int(remove_id)]
     print(f"The Spartan with {remove_id} has now been removed from the database.")
 
-def check_if_id_db(check_id):
-    global all_spartans_dic
-    create_spartan_ob()
-    return check_id in all_spartan_dict.keys()
-
 
 def print_spartan_db():
     global spartan_db
     for entry in spartans_db:
         print(spartans_db[entry])
-
-
-def display_db():
-    global all_spartan_dict
-    temp_db = {}
-    try:
-        with open("data.json", "r") as data_file:
-            temp_db = json.load(data_file)
-    except FileNotFoundError as file_not_found_error:
-        print(file_not_found_error)
-    return temp_db
 
 
 def read_option():
