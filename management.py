@@ -5,15 +5,15 @@ from spartan import Spartans
 def spartans_read_option():
     while True:
         user_option = input("This is a list of your options: \n 1): Add a Spartan  \n 2): Remove a Spartan \n 3): List the Spartans \n "
-            "4): Update a Sparatan's Data \n 5): Total number of Spartans \n 6): Retrieve a Spartan \n 7): Save to JSON file \n 8): Exit the app \n")
+            "4): Update a Sparatan's Data \n 5): Total number of Spartans \n 6): Retrieve a Spartan \n 7): Save to JSON file \n 8): From load \n 9): Exit the app \n")
         user_option = user_option.strip()
-        if user_option in ["add", "remove", "update", "list", "total", "retrieve", "save", "exit"]:
+        if user_option in ["add", "remove", "update", "list", "total", "retrieve", "save", "load", "exit"]:
             return user_option
         else:
             print("Error, You should select one of the options in the list")
 
 
-def read_spartans_id():
+def set_spartans_id():
     while True:
         id_str = input("Please Enter the Spartan's ID:")
         id_str = id_str.strip()
@@ -28,7 +28,7 @@ def read_spartans_id():
             print("Error, The Spartan's ID should be a number")
 
 
-def read_first_name():
+def set_first_name():
     while True:
         first_name = input("Please Enter The Spartan's First Name:")
         first_name = first_name.strip()
@@ -39,7 +39,7 @@ def read_first_name():
             print("Error, The Spartans First Name should be at least 2 Characters")
 
 
-def read_last_name():
+def set_last_name():
     while True:
         last_name = input("Please Enter The Spartan's Last Name:")
         last_name = last_name.strip()
@@ -50,7 +50,7 @@ def read_last_name():
             print("Error, The Spartan's Last Name should be at least 2 Characters")
 
 
-def read_year():
+def set_year():
     while True:
         year_str = input("Please Enter the Spartan's Birth Year:")
         year_str = year_str.strip()
@@ -65,7 +65,7 @@ def read_year():
             print("Error, The Spartan's Birth Year should be a number")
 
 
-def read_month():
+def set_month():
     while True:
         month_str = input("Please Enter the Spartan's Birth Month:")
         month_str = month_str.strip()
@@ -80,7 +80,7 @@ def read_month():
             print("Error, The Spartan's Birth Month should be a number")
 
 
-def read_day():
+def set_day():
     while True:
         day_str = input("Please Enter the Spartan's Birth Day:")
         day_str = day_str.strip()
@@ -96,35 +96,35 @@ def read_day():
 
 
 # both course and streams can be string and numbers
-def read_spartans_course():
+def set_spartans_course():
     while True:
         spartan_course = input(str("Please enter the Course you are in:"))
         spartan_course = spartan_course.strip()
-        if len(spartan_course) >= 0:
+        if len(spartan_course) >= 2:
             return spartan_course
         else:
-            print("Error, the Course should be in characters")
+            print("Error, the Course should be at least 2 characters")
 
 
-def read_spartans_stream():
+def set_spartans_stream():
     while True:
         spartan_stream = input(str("Please enter the Stream you are in:"))
         spartan_stream = spartan_stream.strip()
-        if len(spartan_stream) >= 0:
+        if len(spartan_stream) >= 2:
             return spartan_stream
         else:
-            print("Error, the Stream should be in characters")
+            print("Error, the Stream should be at least 2 characters")
 
 
 def create_spartan_ob():
-    spartan_id = read_spartans_id()
-    spartan_first_name = read_first_name()
-    spartan_last_name = read_last_name()
-    spartan_birth_year = read_year()
-    spartan_birth_month = read_month()
-    spartan_birth_day = read_day()
-    spartan_course = read_spartans_course()
-    spartan_stream = read_spartans_stream()
+    spartan_id = set_spartans_id()
+    spartan_first_name = set_first_name()
+    spartan_last_name = set_last_name()
+    spartan_birth_year = set_year()
+    spartan_birth_month = set_month()
+    spartan_birth_day = set_day()
+    spartan_course = set_spartans_course()
+    spartan_stream = set_spartans_stream()
 
     spartan = Spartans(spartan_id, spartan_first_name, spartan_last_name, spartan_birth_year, spartan_birth_month,
                        spartan_birth_day, spartan_course, spartan_stream)
@@ -152,11 +152,27 @@ def remove_spartan():
     del spartans_db[int(remove_id)]
     print(f"The Spartan with {remove_id} has now been removed from the database.")
 
+def check_if_id_db(check_id):
+    global all_spartans_dic
+    create_spartan_ob()
+    return check_id in all_spartan_dict.keys()
+
 
 def print_spartan_db():
     global spartan_db
     for entry in spartans_db:
         print(spartans_db[entry])
+
+
+def display_db():
+    global all_spartan_dict
+    temp_db = {}
+    try:
+        with open("data.json", "r") as data_file:
+            temp_db = json.load(data_file)
+    except FileNotFoundError as file_not_found_error:
+        print(file_not_found_error)
+    return temp_db
 
 
 def read_option():
@@ -175,25 +191,25 @@ def read_option():
 def update_spartans_data(spartan_id):
     field_option = read_option()
     if field_option == "first_name":
-        new_first_name = read_first_name()
+        new_first_name = set_first_name()
         all_spartan_dict[spartan_id].set_first_name = new_first_name
     elif field_option == "last_name":
-        new_last_name = read_last_name()
+        new_last_name = set_last_name()
         all_spartan_dict[spartan_id].set_last_name = new_last_name
     elif field_option == "birth_year":
-        new_birth_year = read_year()
+        new_birth_year = set_year()
         all_spartan_dict[spartan_id].set_birth_year = new_birth_year
     elif field_option == "birth_month":
-        new_birth_month = read_month()
+        new_birth_month = set_month()
         all_spartan_dict[spartan_id].set_birth_month = new_birth_month
     elif field_option == "birth_day":
-        new_birth_day = read_day()
+        new_birth_day = set_day()
         all_spartan_dict[spartan_id].set_birth_day = new_birth_day
     elif field_option == "sp_course":
-        new_sp_course = read_spartans_course()
+        new_sp_course = set_spartans_course()
         all_spartan_dict[spartan_id].set_sp_course = new_sp_course
     elif field_option == "sp_stream":
-        new_sp_stream = read_spartans_stream()
+        new_sp_stream = set_spartans_stream()
         all_spartan_dict[spartan_id].set_sp_stream = new_sp_stream
 
     print(f"Field{field_option} for entry iD {spartan_id} has been changed.")
@@ -214,17 +230,18 @@ def load_from_json():
     global all_spartan_dict
     temp_dict_of_dict = {}
     try:
-        with open("data.json", "r") as data_file:
-            temp_dict_of_dict = json.load(data_file)
+        # with open("data.json", "r") as data_file:
+        with open("data.json", "r") as temp_dict_of_dict:
+            data = json.load(temp_dict_of_dict)
     except:
         print("The file data1.json doesn't exist")
-    print(temp_dict_of_dict)
-    for spartan_id_key in temp_dict_of_dict:
-        spartan_id = temp_dict_of_dict[spartan_id_key]['spartan_id']
-    spartan_object = Spartans[create_spartan_ob()]
+    # print(temp_dict_of_dict)
+    # for spartan_id_key in temp_dict_of_dict:
+    #     spartan_id = temp_dict_of_dict[spartan_id_key]['spartan_id']
+    #     spartan_object = Spartans[create_spartan_ob()]
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
     all_spartan_dict = {}
     # load_from_json()
@@ -246,7 +263,7 @@ if __name__ == "__main__":
 
         elif option == "remove":
             print("The user wants to remove a Spartan \n")
-            spartan_id = read_spartans_id()
+            spartan_id = set_spartans_id()
             del all_spartan_dict[spartan_id]
             # log_file.write("you have removed an Spartan \n")
 
@@ -262,7 +279,7 @@ if __name__ == "__main__":
         # add, remove, list and retrieve, exit
         elif option == "update":
             print("The user wants to update the data of a Spartan")
-            spartan_id = read_spartans_id()
+            spartan_id = set_spartans_id()
             update_spartans_data(spartan_id)
             # log_file.write("you have updated an Spartan \n")
 
@@ -272,7 +289,7 @@ if __name__ == "__main__":
 
         elif option == "retrieve":
             print("The user wants to retrieve a Spartan using an ID")
-            spartan_id = Spartans.read_spartans_id()
+            spartan_id = Spartans.set_spartans_id()
             print(all_spartan_dict.get(spartan_id))
 
         elif option == "exit":
