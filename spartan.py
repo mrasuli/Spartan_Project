@@ -1,6 +1,6 @@
 class Spartans:
 
-    def __init__(self, sp_id, f_n, l_n, b_y, b_m, b_d,course, stream):
+    def __init__(self, sp_id, f_n, l_n, b_y, b_m, b_d, course, stream):
         self.spartan_id = sp_id
         self.first_name = f_n
         self.last_name = l_n
