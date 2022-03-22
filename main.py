@@ -6,7 +6,13 @@ spartan_app = Flask(__name__)
 # http://127.0.0.1:5000
 @spartan_app.route('/', methods=['GET'])
 def home_page():
-    home_page_content = "This is the landing page!"
+    home_page_content = "This is the landing page! \n" \
+                        "" \
+                        "What is an API? \n" \
+                        "" \
+                        "API stands for “Application Programming Interface.” " \
+                        "An API is a software intermediary that allows two applications to talk to each other.  " \
+                        "In other words, an API is the messenger that delivers your request to the provider that you’re requesting it from and then delivers the response back to you."
     return home_page_content
 
 
@@ -26,6 +32,7 @@ def spartan_get(spartan_id):
     spartan = management.get_spartan(spartan_id)
     return f"You are looking for spartan with ID {spartan}"
 
+# both add and remove can have the same route but only using different methods
 
 # http://127.0.0.1:5000/spartan/1
 @spartan_app.route('/spartan/<spartan_id>', methods=['DELETE'])

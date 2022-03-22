@@ -12,23 +12,30 @@ def get_all_spartans():
     return list
 
 
-def create(newSpartan):
-    spartanToCreate = Spartans(newSpartan["spartan_id"], newSpartan["first_name"], newSpartan["last_name"],
-                            newSpartan["birth_year"], newSpartan["birth_month"], newSpartan["birth_day"],
-                            newSpartan["sp_course"], newSpartan["sp_stream"])
+def create(create_spartan):
+    create_spartan = Spartans(create_spartan["spartan_id"], create_spartan["first_name"], create_spartan["last_name"],
+                              create_spartan["birth_year"], create_spartan["birth_month"], create_spartan["birth_day"],
+                              create_spartan["sp_course"], create_spartan["sp_stream"])
 
-
-    if len(spartanToCreate.get_first_name()) < 2:
+    if len(create_spartan.get_first_name()) < 2:
         return "Error: first name needs to have at least 2 characters"
-    if len(spartanToCreate.get_last_name()) < 2:
+    if len(create_spartan.get_last_name()) < 2:
         return "Error: last name needs to have at least 2 characters"
-    if len(spartanToCreate.get_sp_course()) < 2:
+    if len(create_spartan.get_sp_course()) < 2:
         return "Error: spartan course needs to have at least 2 characters"
-    if len(spartanToCreate.get_sp_stream()) < 2:
+    if len(create_spartan.get_sp_stream()) < 2:
         return "Error: spartan stream needs to have at least 2 characters"
 
+    # if int(create_spartan.get_birth_month() not in range (1, 32):
+    #     return "ERROR: Day of birth should be a number between 1 and 31."
+
+    # if int(create_spartan["birth_month"]) not in range(1, 12):
+    #     return "ERROR: Month of birth should be a number between 1 and 12."
+    # if int(create_spartan["birth_year"]) not in range(1900, 2005):
+    #     return "ERROR: Year of birth should be a number between 1900 and 2005."
+
     load_jsonfile()
-    all_spartans_dict[spartanToCreate.get_spartan_id()] = spartanToCreate
+    all_spartans_dict[create_spartan.get_spartan_id()] = create_spartan
     save_to_jsonfile()
     return "Spartan has been saved"
 
